@@ -1,0 +1,55 @@
+﻿@model Hotel_Sunrise.Models.DetalleReservacion
+
+@{
+    ViewData["Title"] = "Delete";
+
+    Clientes cliente = ViewBag.cliente;
+    Reservacion reservacion = ViewBag.reservacion;
+    List<ListaHabitaciones> listh = ViewBag.lista;
+    var cuenta = ViewBag.cuenta;
+}
+
+<div class="card" style="width: 25rem;">
+    <div class="card-header">
+        <h3 class="card-title">@cliente.NombreCompleto</h3>
+        <h3 class="card-title">@cliente.TipoIdentificacion</h3>
+        <h3 class="card-title">@cliente.Identificacion</h3>
+    </div>
+    
+    <div class="card-body">
+        <h4>Fecha Ingreso <span class="badge badge-primary">@reservacion.Fecha_Ingreso</span></h4>
+        <h4>Fecha Salida <span class="badge badge-primary">@reservacion.Fecha</span></h4>
+        <h4>Dia<span class="badge badge-primary">@reservacion.Dias</span></h4>
+        
+    </div>
+    <div class="card-footer">
+        <table class="table table-warning w-50">
+            <thead>
+                <tr>
+                    <td>Tipo</td>
+                    <td>Camas</td>
+                    <td>PrecioxDia</td>
+                    <td>Subtoal</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (cuenta >= 1 || cuenta != null)
+                {
+                    
+                    <tr>
+
+                        @foreach (ListaHabitaciones item in listh)
+                        {
+                            <td>@item.Tipo</td>
+                            <td>@item.Camas</td>
+                            <td>@item.PrecioxDia</td>
+                            <td>@(item.PrecioxDia * reservacion.Dias)</td>
+                        }
+                    </tr>
+                    }
+                </tbody>
+        </table>
+        <a class="btn btn-warning w-100" asp-action="DeleteConfirmed" asp-route-idre=@reservacion.ReservacionId asp-route-idcl=@cliente.ClientesId>Pagar</a>
+
+    </div>
+</div>

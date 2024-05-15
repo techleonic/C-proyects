@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Hotel_Sunrise.Models.Tipo_Habitacion>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.detalleReservacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Camas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioDia)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.detalleReservacion.DetalleReservacionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Camas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioDia)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Tipo_Habitacionid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Tipo_Habitacionid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Tipo_Habitacionid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

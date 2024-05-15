@@ -1,0 +1,36 @@
+﻿@model Hotel_Sunrise.Models.Tipo_Habitacion
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Tipo_Habitacion</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.detalleReservacion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.detalleReservacion.DetalleReservacionId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Camas)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Camas)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PrecioDia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PrecioDia)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Tipo_Habitacionid">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

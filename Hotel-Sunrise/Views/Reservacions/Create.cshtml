@@ -1,0 +1,97 @@
+﻿@model Hotel_Sunrise.Models.Reservacion
+
+@{
+    ViewData["Title"] = "Create";
+    Clientes cliente = ViewBag.cliente;
+    List<Reservacion> reservacions = cliente.Reservaciones.ToList();
+}
+
+
+
+
+<h4>Reservacion</h4>
+<hr />
+<div class="row">
+    <div class="col">
+        <div class="card" style="width: 25rem;">
+            <div class="card-header">
+                <h3 class="card-title">@cliente.NombreCompleto</h3>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">@cliente.Pais</h6>
+                <h4>@cliente.TipoIdentificacion <span class="badge badge-primary">@cliente.Identificacion</span></h4>
+                <h4>Pais <span class="badge badge-secondary">@cliente.Pais</span></h4>
+                <h4>Direccion <span class="badge badge-secondary">@cliente.Direccion</span></h4>
+                <h4>Telefono <span class="badge badge-secondary">@cliente.Telefono</span></h4>
+                <a asp-action="ListaClientes" class="btn btn-primary">Lista Clientes</a>
+                <a  class="btn btn-primary" asp-action="EditarCliente" asp-route-Clienteid=@cliente.ClientesId>Editar</a>
+            </div>
+        </div>
+    </div>
+    <form asp-action="Create" asp-route-id=@cliente.ClientesId class="col">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Fecha_Ingreso"  class="control-label"></label>
+            <input asp-for="Fecha_Ingreso" type="date"  id="Fechai" class="form-control" />
+            <span asp-validation-for="Fecha_Ingreso" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Fecha" class="control-label"></label>
+            <input asp-for="Fecha" type="date" id="Fechas" class="form-control" />
+            <span asp-validation-for="Fecha" class="text-danger"></span>
+        </div>
+        @*<div class="form-group">
+            <label asp-for="Dias" class="control-label"></label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button  asp-action="CalDias" type="button" id="button-addon1">Calcular</button>
+                </div>
+                <input asp-for="Dias"  id="txtDias" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+            </div>
+            <span asp-validation-for="Dias" class="text-danger"></span>
+        </div>*@
+        <div class="form-group">
+            <label asp-for="Observaciones" class="control-label"></label>
+            <input asp-for="Observaciones" class="form-control" />
+            <span asp-validation-for="Observaciones" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+    
+</div>
+<br />
+<div class="row">
+    <h5 class="w-100 text-center">Lista de Reservaciones</h5>
+    <table class="table table-dark table-striped" >
+        <thead>
+            <tr>
+                <th>Fecha ingreso</th>
+                <th>Fecha SAlida</th>
+                <th>Dias</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Reservacion item in reservacions)
+            {
+                <tr>
+                    <td>@item.Fecha_Ingreso</td>
+                    <td>@item.Fecha</td>
+                    <td>@item.Dias</td>
+                    <td>@item.Observaciones</td>
+                    <td><a class="btn btn-primary" asp-action="addDetalle" asp-route-idr="@item.ReservacionId" asp-route-idc="@item.ClientesId">Agregar Detalle</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

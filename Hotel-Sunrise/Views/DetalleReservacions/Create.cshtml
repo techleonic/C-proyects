@@ -1,0 +1,104 @@
+﻿@model Hotel_Sunrise.Models.Tipo_Habitacion
+
+@{
+    ViewData["Title"] = "Create";
+    Reservacion reservacion = ViewBag.reservacion;
+    Clientes cliente = ViewBag.cliente;
+    List<ListaHabitaciones> habitaciones = ViewBag.Habitaciones;
+    List<ListaHabitaciones> listah = ViewBag.ListHabitaciones;
+}
+
+<h1>Create</h1>
+
+<h4>DetalleReservacion</h4>
+<hr />
+<div class="row">
+    <div class="col">
+        <div class="card" style="width: 25rem;">
+            <div class="card-header">
+                <h3 class="card-title">@cliente.NombreCompleto</h3>
+                <h3 class="card-title">@cliente.TipoIdentificacion</h3>
+                <h3 class="card-title">@cliente.Identificacion</h3>
+            </div>
+            <div class="card-body">
+                <h4>Fecha Ingreso <span class="badge badge-primary">@reservacion.Fecha_Ingreso</span></h4>
+                <h4>Fecha Salida <span class="badge badge-primary">@reservacion.Fecha</span></h4>
+                <h4>Dia<span class="badge badge-primary">@reservacion.Dias</span></h4>
+            </div>
+            <div class="card-footer">
+                <table class="table table-primary">
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>TIpo</td>
+                            <td>Camas</td>
+                            <td>Precio x  Dia</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (listah.Count >= 1)
+                        {
+                            @foreach (ListaHabitaciones item in listah)
+                            {
+                                <tr>
+                                    <td>@item.ListaHabitacionesId</td>
+
+                                    <td>@item.Tipo</td>
+
+                                    <td>@item.Camas</td>
+                                    <td>@item.PrecioxDia</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <a class="btn btn-warning btn-lg" asp-action="Delete" asp-route-idre=@reservacion.ReservacionId asp-route-idcl=@cliente.ClientesId>Pagar</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Tipo</td>
+
+                    <td>Camas</td>
+
+                    <td>Precio dia</td>
+
+                    <td>Fecha Salida</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (habitaciones.Count>=1)
+                {
+                    @foreach (ListaHabitaciones item in habitaciones)
+                    {
+                        <tr>
+                            <td>@item.ListaHabitacionesId</td>
+                            <td>@item.Tipo</td>
+
+                            <td>@item.Camas</td>
+
+                            <td>@item.PrecioxDia</td>
+
+                            <td>@item.FechaSalida</td>
+
+                            <td><a class="btn btn-primary" asp-action="add"  asp-route-idre=@reservacion.ReservacionId asp-route-idcl=@cliente.ClientesId asp-route-hid=@item.ListaHabitacionesId>add</a></td>
+                        </tr>
+                     }
+                    }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
